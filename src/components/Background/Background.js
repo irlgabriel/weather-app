@@ -1,8 +1,10 @@
 import React from "react"
 import { BlurredBackground } from "./Background.components";
 
-export default function Background() {
+export default function Background(img) {
+  console.log(img)
   return(
-    <BlurredBackground />
+    
+    <BlurredBackground img={img}/>
   )
 }

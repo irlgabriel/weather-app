@@ -7,7 +7,7 @@ export const BlurredBackground = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: url("/images/img1.jpg");
+  background-image: ${({img}) => (`url(${img.img})`)};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

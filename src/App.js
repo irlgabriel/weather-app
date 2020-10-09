@@ -8,6 +8,7 @@ import { Background, SearchBar, Weather } from "./components"
 
   function App() {
   const [responseObj, setResponseObj] = useState({});
+  const [backgroundImg, setBackground] = useState('/images/sunny.jpg')
 
   function getResponseObj(city, units) {
     fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
@@ -30,7 +31,7 @@ import { Background, SearchBar, Weather } from "./components"
   return (
     <Container>
       <GlobalStyle />
-      <Background />
+      <Background img={backgroundImg} />
       <SearchBar
         getResponseObj={getResponseObj}
       />

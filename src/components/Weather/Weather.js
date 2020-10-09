@@ -2,7 +2,9 @@ import React from "react";
 import { 
   WeatherContainer, 
   ForecastDiv,
+  CloudIcon,
   
+
 } from "./Weather.components";
 
 export default function Weather({
@@ -13,7 +15,7 @@ export default function Weather({
     {
       responseObj && 
       <ForecastDiv>
-
+        <CloudIcon />
       </ForecastDiv>
     }
     </WeatherContainer>
