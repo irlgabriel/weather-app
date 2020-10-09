@@ -6,3 +6,7 @@ export const WeatherContainer = styled.div`
   border: 1px solid lightsalmon;
   min-height: 74vh;
 `
+
+export const ForecastDiv = styled.div`
+  
+`
