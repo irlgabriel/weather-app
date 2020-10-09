@@ -7,6 +7,24 @@ export const TextInput = styled.input`
   border: 1px solid lightgray;
 `
 
+export const Label = styled.label`
+
+  `
+
+export const SelectInput = styled.select`
+
+`
+
+export const ColumnFlex = styled.div`
+  display: flex;
+  flex-direction: column;
+
+`
+
+export const Option = styled.option`
+
+`
+
 export const Form = styled.form`
   padding: .5rem;
   border: 1px solid black;
