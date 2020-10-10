@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { 
   WeatherContainer, 
   ForecastDiv,
   CloudIcon,
-  
+  Header,
 
 } from "./Weather.components";
 
 export default function Weather({
-  responseObj,
+  w2eatherObj,
 }) {
+  
   return(
     <WeatherContainer>
     {
-      responseObj && 
+      w2eatherObj && 
       <ForecastDiv>
+        <Header>{w2eatherObj.name}</Header>
         <CloudIcon />
       </ForecastDiv>
     }

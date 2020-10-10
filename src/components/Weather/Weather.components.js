@@ -8,6 +8,10 @@ export const WeatherContainer = styled.div`
   min-height: 74vh;
 `
 
+export const Header = styled.h3`
+
+`
+
 export const ForecastDiv = styled.div`
 
 `

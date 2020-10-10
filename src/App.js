@@ -7,10 +7,33 @@ import {
 import { Background, SearchBar, Weather } from "./components"
 
   function App() {
-  const [responseObj, setResponseObj] = useState({});
+  const [weatherObj, setWeatherObj] = useState({});
+  const [locationObj, setLocationObj] = useState({})
   const [backgroundImg, setBackground] = useState('/images/sunny.jpg')
+  const [coords, setCoords] = useState("");
 
-  function getResponseObj(city, units) {
+  // Geolocation API
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error)
+  } else {
+    setCoords("Geolocation not supported on you browser!")
+  }
+  function success(position) {
+    setCoords({lat: position.coords.latitude, long: position.coords.longitude})
+  }
+  function error() {
+    setCoords("Unable to retrieve your location!")
+  }
+
+  function getCity() {
+    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.lat}&longitude=${coords.long}&localityLanguage=en
+    `)
+    .then(response => response.json())
+    .then(res => setLocationObj(res))
+  }
+
+  // OpenWeather API
+  function getWeatherObj(city, units) {
     fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
     "method": "GET",
     "headers": {
@@ -20,7 +43,7 @@ import { Background, SearchBar, Weather } from "./components"
     })
     .then(response => response.json()
     .then((res) => {
-      setResponseObj(res.list);
+      setWeatherObj(res.list);
     }))
     .catch(err => {
       console.log(err);
@@ -30,14 +53,15 @@ import { Background, SearchBar, Weather } from "./components"
 
   return (
     <Container>
+      <button onClick={getCity}>getCity</button>
       <GlobalStyle />
       <Background img={backgroundImg} />
       <SearchBar
-        getResponseObj={getResponseObj}
+        getWeatherObj={getWeatherObj}
       />
       <Weather 
-        getResponseObj={getResponseObj}
-        responseObj={responseObj}
+        getWeatherObj={getWeatherObj}
+        weatherObj={weatherObj}
       />
     </Container>
   );

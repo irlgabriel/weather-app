@@ -9,13 +9,13 @@ import {
 } from "./SearchBar.components";
 
 export default function SearchBar({
-  getResponseObj,
+  getWeatherObj,
 }) {
   function submitHandler(e) {
     e.preventDefault();
     const units = e.target.units.value;
     const location = e.target.location.value;
-    getResponseObj(location, units)
+    getWeatherObj(location, units)
   }
 
   return(

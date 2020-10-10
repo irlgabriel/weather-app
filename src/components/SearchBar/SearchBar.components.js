@@ -3,8 +3,10 @@ import styled from "styled-components";
 export const TextInput = styled.input`
   padding: .5rem 1.25rem;
   border: none;
+  width: 50%;
   border-radius: .5rem;
   border: 1px solid lightgray;
+  margin: .5rem 0;
 `
 
 export const Label = styled.label`
