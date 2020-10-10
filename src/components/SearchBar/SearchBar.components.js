@@ -1,20 +1,37 @@
 import styled from "styled-components";
 
 export const TextInput = styled.input`
-  padding: .5rem 1.25rem;
   border: none;
-  width: 50%;
-  border-radius: .5rem;
-  border: 1px solid lightgray;
-  margin: .5rem 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 .5rem;
 `
 
 export const Label = styled.label`
 
   `
+export const InputDiv = styled.div`
+  position: relative;
+  width: 50%;
+  height: 30px;
+  border: 1px solid lightgray;
+  display: flex;
+  align-items: center;
 
+`
 export const SelectInput = styled.select`
 
+`
+
+export const MyLocation = styled.button`
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 28px;
+  width: 75px;
+  background: lightcoral;
+  color: white;
+  border: none;
 `
 
 export const ColumnFlex = styled.div`

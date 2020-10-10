@@ -19,6 +19,7 @@ import { Background, SearchBar, Weather } from "./components"
     setCoords("Geolocation not supported on you browser!")
   }
 
+  // Use HTML5 Geolocation's coords to get city name
   async function getCity() {
     const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.lat}&longitude=${coords.long}&localityLanguage=en`)
     const res = await response.json()
@@ -36,9 +37,7 @@ import { Background, SearchBar, Weather } from "./components"
     })
     const res = await response.json()
     setWeatherObj(res.list[0])
-
   }
-
   function success(position) {
     setCoords({lat: position.coords.latitude, long: position.coords.longitude})
     getCity()
