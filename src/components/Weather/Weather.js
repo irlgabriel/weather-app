@@ -26,8 +26,15 @@ export default function Weather({
     {
       weatherObj && 
       <ForecastDiv>
-        <Header>{locationObj.city ? locationObj.city : ""}</Header>
-        <Hint>{weather.description ? weather.description : ""}</Hint>
+        {
+          locationObj.city &&
+          <Header>{locationObj.city}</Header>
+        }
+        <Header></Header>
+        {
+          weather.description && 
+          <Hint>{weather.description}</Hint>
+        }
       </ForecastDiv>
     }
     </WeatherContainer>

@@ -13,10 +13,12 @@ import { Background, SearchBar, Weather } from "./components"
   const [coords, setCoords] = useState("");
 
   // Geolocation API
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success, error)
-  } else {
-    setCoords("Geolocation not supported on you browser!")
+  function getCoords() {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error)
+    } else {
+      setCoords("Geolocation not supported on you browser!")
+    }
   }
 
   // Use HTML5 Geolocation's coords to get city name

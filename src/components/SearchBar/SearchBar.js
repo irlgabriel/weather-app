@@ -19,7 +19,7 @@ export default function SearchBar({
   function submitHandler(e) {
     e.preventDefault();
     const location = e.target.location.value;
-    setLocationObj({city: location});
+    setLocationObj({city: location})
     getWeatherObj(location);
   }
 
