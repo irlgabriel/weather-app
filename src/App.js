@@ -22,27 +22,29 @@ import { Background, SearchBar, Weather } from "./components"
   }
 
   // Use HTML5 Geolocation's coords to get city name
-  async function getCity() {
-    const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.lat}&longitude=${coords.long}&localityLanguage=en`)
+  async function getCity(lat, long) {
+    const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
     const res = await response.json()
     setLocationObj(res);
+    getWeatherObj(res.city)
   }
 
   // OpenWeather API
   async function getWeatherObj(city, units = "metric") {
-    const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
-    "method": "GET",
-    "headers": {
-      "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-      "x-rapidapi-key": "d89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a"
+    const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=imperial%252C%20metric&q=${city}`, {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+        "x-rapidapi-key": "d89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a"
       }
     })
     const res = await response.json()
+    console.log(res.list[0])
     setWeatherObj(res.list[0])
   }
   function success(position) {
     setCoords({lat: position.coords.latitude, long: position.coords.longitude})
-    getCity()
+    getCity(position.coords.latitude, position.coords.longitude)
   }
   function error() {
     setCoords("Unable to retrieve your location!")
@@ -56,6 +58,7 @@ import { Background, SearchBar, Weather } from "./components"
         getWeatherObj={getWeatherObj}
         locationObj={locationObj}
         setLocationObj={setLocationObj}
+        getCoords={getCoords}
       />
       <Weather 
         getWeatherObj={getWeatherObj}

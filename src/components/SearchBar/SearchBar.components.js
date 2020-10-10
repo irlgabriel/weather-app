@@ -46,7 +46,6 @@ export const Option = styled.option`
 
 export const Form = styled.form`
   padding: .5rem;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;

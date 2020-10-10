@@ -30,7 +30,6 @@ export default function Weather({
           locationObj.city &&
           <Header>{locationObj.city}</Header>
         }
-        <Header></Header>
         {
           weather.description && 
           <Hint>{weather.description}</Hint>
