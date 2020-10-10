@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   GlobalStyle, 
   Container,
@@ -35,7 +35,7 @@ import { Background, SearchBar, Weather } from "./components"
       }
     })
     const res = await response.json()
-    setWeatherObj(res)
+    setWeatherObj(res.list[0])
 
   }
 

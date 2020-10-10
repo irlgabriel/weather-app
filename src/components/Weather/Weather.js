@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { 
   WeatherContainer, 
   ForecastDiv,
-  WeatherIcon,
   Header,
   Hint,
 
@@ -14,14 +13,21 @@ export default function Weather({
   weatherObj,
   locationObj
 }) {
-  
-  return(
+  const [weather, setWeather] = useState("")
+
+  useEffect(() => {
+    if (weatherObj.weather) {
+      setWeather(weatherObj.weather[0])
+    }
+  }, [weatherObj])
+
+  return( 
     <WeatherContainer>
     {
       weatherObj && 
       <ForecastDiv>
-        <Header>{weatherObj.name}</Header>
-        <Hint>{locationObj.city ? locationObj.city : ""}</Hint>
+        <Header>{locationObj.city ? locationObj.city : ""}</Header>
+        <Hint>{weather.description ? weather.description : ""}</Hint>
       </ForecastDiv>
     }
     </WeatherContainer>
