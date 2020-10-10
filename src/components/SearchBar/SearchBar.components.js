@@ -63,7 +63,14 @@ export const Button = styled.button`
   border-radius: 3px;
   background: 1px solid lightseagreen;
   color: black;
-  border: 1px solid lightgrey;
   background-color: white;
   margin: .5rem 0;
+  color: white;
+  background: lightcoral;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: lightcoral;
+    background: white;
+  }
 `

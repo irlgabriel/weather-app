@@ -38,6 +38,9 @@ export const Hint = styled.em`
 export const TemperatureDiv = styled.div`
   width: 80%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media screen and (max-width: 768px) {
     font-size: 1.5rem;
@@ -52,6 +55,6 @@ export const Temp = styled.h3`
 `
 
 export const Raindrop = styled(WiRaindrop)`
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   color: blue;
 `

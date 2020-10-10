@@ -9,7 +9,7 @@ import { Background, SearchBar, Weather } from "./components"
   function App() {
   const [weatherObj, setWeatherObj] = useState({});
   const [locationObj, setLocationObj] = useState({})
-  const [backgroundImg, setBackground] = useState('/images/sunny.jpg')
+  const [backgroundImg, setBackground] = useState('/images/rain.jpg')
   const [coords, setCoords] = useState("");
   const [unit, setUnit] = useState(false)
   // Geolocation API
@@ -32,16 +32,23 @@ import { Background, SearchBar, Weather } from "./components"
   // OpenWeather API
   async function getWeatherObj(city, units = "metric") {
     setUnit(units)
-    const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-        "x-rapidapi-key": "d89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a"
-      }
-    })
+    try {
+      const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+          "x-rapidapi-key": "d89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a"
+        }
+      })
     const res = await response.json()
     console.log(res.list[0])
     setWeatherObj(res.list[0])
+    } catch(e) {
+      console.log(e)
+    }
+
+    // Change background to match weather info
+    
   }
   function success(position) {
     setCoords({lat: position.coords.latitude, long: position.coords.longitude})

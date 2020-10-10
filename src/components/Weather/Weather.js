@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { RiCelsiusFill, RiFahrenheitFill } from "react-icons/ri" 
 
 import { 
@@ -16,18 +16,10 @@ export default function Weather({
   locationObj,
   units
 }) {
-  const [weather, setWeather] = useState("")
-
-  useEffect(() => {
-    if (weatherObj.weather) {
-      setWeather(weatherObj.weather[0])
-    }
-  }, [weatherObj])
-
   return( 
       <WeatherContainer>
         {
-        weatherObj.weather && 
+        weatherObj && weatherObj.weather && 
         <ForecastDiv>
           {
             locationObj.city &&
@@ -41,7 +33,7 @@ export default function Weather({
               <Temp> Now: &nbsp;{units == "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp}</Temp>
               <Temp> Min: &nbsp;{units == "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp_min}</Temp>
               <Temp> Max: &nbsp;{units == "metric" ? <RiCelsiusFill />: <RiFahrenheitFill />}{weatherObj.main.temp_max}</Temp>
-              <Temp> Humidity({<Raindrop />}): {weatherObj.main.humidity}</Temp>
+              <Temp> Humidity({<Raindrop />}): {weatherObj.main.humidity}%</Temp>
             </TemperatureDiv>
           }
         </ForecastDiv>
