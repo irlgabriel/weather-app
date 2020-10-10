@@ -1,23 +1,27 @@
 import React, { useState } from "react";
+
 import { 
   WeatherContainer, 
   ForecastDiv,
-  CloudIcon,
+  WeatherIcon,
   Header,
+  Hint,
+
 
 } from "./Weather.components";
 
 export default function Weather({
-  w2eatherObj,
+  weatherObj,
+  locationObj
 }) {
   
   return(
     <WeatherContainer>
     {
-      w2eatherObj && 
+      weatherObj && 
       <ForecastDiv>
-        <Header>{w2eatherObj.name}</Header>
-        <CloudIcon />
+        <Header>{weatherObj.name}</Header>
+        <Hint>{locationObj.city ? locationObj.city : ""}</Hint>
       </ForecastDiv>
     }
     </WeatherContainer>

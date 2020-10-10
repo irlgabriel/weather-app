@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   GlobalStyle, 
   Container,
@@ -18,50 +18,48 @@ import { Background, SearchBar, Weather } from "./components"
   } else {
     setCoords("Geolocation not supported on you browser!")
   }
-  function success(position) {
-    setCoords({lat: position.coords.latitude, long: position.coords.longitude})
-  }
-  function error() {
-    setCoords("Unable to retrieve your location!")
-  }
 
-  function getCity() {
-    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.lat}&longitude=${coords.long}&localityLanguage=en
-    `)
-    .then(response => response.json())
-    .then(res => setLocationObj(res))
+  async function getCity() {
+    const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.lat}&longitude=${coords.long}&localityLanguage=en`)
+    const res = await response.json()
+    setLocationObj(res);
   }
 
   // OpenWeather API
-  function getWeatherObj(city, units) {
-    fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
+  async function getWeatherObj(city, units = "metric") {
+    const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
       "x-rapidapi-key": "d89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a"
       }
     })
-    .then(response => response.json()
-    .then((res) => {
-      setWeatherObj(res.list);
-    }))
-    .catch(err => {
-      console.log(err);
-    });
-  } 
+    const res = await response.json()
+    setWeatherObj(res)
 
+  }
+
+  function success(position) {
+    setCoords({lat: position.coords.latitude, long: position.coords.longitude})
+    getCity()
+  }
+  function error() {
+    setCoords("Unable to retrieve your location!")
+  }
 
   return (
     <Container>
-      <button onClick={getCity}>getCity</button>
-      <GlobalStyle />
+        <GlobalStyle />
       <Background img={backgroundImg} />
       <SearchBar
         getWeatherObj={getWeatherObj}
+        locationObj={locationObj}
+        setLocationObj={setLocationObj}
       />
       <Weather 
         getWeatherObj={getWeatherObj}
         weatherObj={weatherObj}
+        locationObj={locationObj}
       />
     </Container>
   );
