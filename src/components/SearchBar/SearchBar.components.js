@@ -11,12 +11,17 @@ export const Label = styled.label`
 
   `
 export const InputDiv = styled.div`
+  margin: .5rem;
   position: relative;
   width: 50%;
   height: 30px;
   border: 1px solid lightgray;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
 
 `
 export const SelectInput = styled.select`

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { RiCelsiusFill, RiFahrenheitFill } from "react-icons/ri" 
 
 import { 
   WeatherContainer, 
@@ -7,12 +8,13 @@ import {
   Hint,
   TemperatureDiv,
   Temp,
-
+  Raindrop
 } from "./Weather.components";
 
 export default function Weather({
   weatherObj,
-  locationObj
+  locationObj,
+  units
 }) {
   const [weather, setWeather] = useState("")
 
@@ -23,27 +25,27 @@ export default function Weather({
   }, [weatherObj])
 
   return( 
-    <WeatherContainer>
-    {
-      weatherObj && 
-      <ForecastDiv>
+      <WeatherContainer>
         {
-          locationObj.city &&
-          <Header>{locationObj.city}</Header>
+        weatherObj.weather && 
+        <ForecastDiv>
+          {
+            locationObj.city &&
+            <Header>{locationObj.city}</Header>
+          }
+          {
+            <Hint>{weatherObj.weather[0].description}</Hint>
+          }
+          {
+            <TemperatureDiv>
+              <Temp> Now: &nbsp;{units == "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp}</Temp>
+              <Temp> Min: &nbsp;{units == "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp_min}</Temp>
+              <Temp> Max: &nbsp;{units == "metric" ? <RiCelsiusFill />: <RiFahrenheitFill />}{weatherObj.main.temp_max}</Temp>
+              <Temp> Humidity({<Raindrop />}): {weatherObj.main.humidity}</Temp>
+            </TemperatureDiv>
+          }
+        </ForecastDiv>
         }
-        {
-          weather.description && 
-          <Hint>{weather.description}</Hint>
-        }
-        {
-          weather.main && 
-          <TemperatureDiv>
-            <Temp>{weather.main.temp_min}</Temp>
-            <Temp>{weather.main.temp_max}</Temp>
-          </TemperatureDiv>
-        }
-      </ForecastDiv>
-    }
-    </WeatherContainer>
+      </WeatherContainer>
   )
 }

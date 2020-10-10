@@ -11,7 +11,7 @@ import { Background, SearchBar, Weather } from "./components"
   const [locationObj, setLocationObj] = useState({})
   const [backgroundImg, setBackground] = useState('/images/sunny.jpg')
   const [coords, setCoords] = useState("");
-
+  const [unit, setUnit] = useState(false)
   // Geolocation API
   function getCoords() {
     if(navigator.geolocation) {
@@ -31,6 +31,7 @@ import { Background, SearchBar, Weather } from "./components"
 
   // OpenWeather API
   async function getWeatherObj(city, units = "metric") {
+    setUnit(units)
     const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
       "method": "GET",
       "headers": {
@@ -49,7 +50,6 @@ import { Background, SearchBar, Weather } from "./components"
   function error() {
     setCoords("Unable to retrieve your location!")
   }
-
   return (
     <Container>
         <GlobalStyle />
@@ -64,6 +64,7 @@ import { Background, SearchBar, Weather } from "./components"
         getWeatherObj={getWeatherObj}
         weatherObj={weatherObj}
         locationObj={locationObj}
+        units={unit}
       />
     </Container>
   );

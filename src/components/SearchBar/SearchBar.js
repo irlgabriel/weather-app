@@ -18,7 +18,7 @@ export default function SearchBar({
 }) {
   function submitHandler(e) {
     e.preventDefault();
-    const units = e.target.location.value;
+    const units = e.target.units.value;
     const location = e.target.location.value;
     setLocationObj({city: location})
     getWeatherObj(location, units);
