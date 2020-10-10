@@ -5,7 +5,8 @@ import {
   ForecastDiv,
   Header,
   Hint,
-
+  TemperatureDiv,
+  Temp,
 
 } from "./Weather.components";
 
@@ -33,6 +34,13 @@ export default function Weather({
         {
           weather.description && 
           <Hint>{weather.description}</Hint>
+        }
+        {
+          weather.main && 
+          <TemperatureDiv>
+            <Temp>{weather.main.temp_min}</Temp>
+            <Temp>{weather.main.temp_max}</Temp>
+          </TemperatureDiv>
         }
       </ForecastDiv>
     }

@@ -22,3 +22,12 @@ export const CloudIcon = styled.span`
 export const Hint = styled.em`
 
 `
+
+export const TemperatureDiv = styled.div`
+  width: 50%;
+  margin: auto;
+`
+
+export const Temp = styled.h3`
+  
+`

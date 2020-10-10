@@ -31,7 +31,7 @@ import { Background, SearchBar, Weather } from "./components"
 
   // OpenWeather API
   async function getWeatherObj(city, units = "metric") {
-    const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=imperial%252C%20metric&q=${city}`, {
+    const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
       "method": "GET",
       "headers": {
         "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
