@@ -82,8 +82,6 @@ import FlashMessage from "react-flash-message";
     setCoords("Unable to retrieve your location!")
   }
   return (
-    <>
-    <Background img={backgroundImg} />
     <Container>
       {
         showFlash && 
@@ -91,12 +89,14 @@ import FlashMessage from "react-flash-message";
           <FlashMessage duration={50000} persistOnHover={true}>{flashMessage}</FlashMessage>
         </FlashContainer>
       }
-      <GlobalStyle />
+        <GlobalStyle />
+      <Background img={backgroundImg} />
       <SearchBar
         getWeatherObj={getWeatherObj}
         locationObj={locationObj}
         setLocationObj={setLocationObj}
         getCoords={getCoords}
+        weatherObj={weatherObj}
       />
       <Weather 
         getWeatherObj={getWeatherObj}
@@ -105,7 +105,6 @@ import FlashMessage from "react-flash-message";
         units={unit}
       />
     </Container>
-    </>
   );
 }
 

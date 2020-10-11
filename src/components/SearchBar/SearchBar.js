@@ -14,7 +14,8 @@ export default function SearchBar({
   getWeatherObj,
   locationObj,
   setLocationObj,
-  getCoords
+  getCoords,
+  weatherObj,
 }) {
   function submitHandler(e) {
     e.preventDefault();

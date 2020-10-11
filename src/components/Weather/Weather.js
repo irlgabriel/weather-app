@@ -1,5 +1,4 @@
 import React from "react";
-import { RiCelsiusFill, RiFahrenheitFill } from "react-icons/ri" 
 
 import { 
   WeatherContainer, 
@@ -8,7 +7,8 @@ import {
   Hint,
   TemperatureDiv,
   Temp,
-  Raindrop
+  Day,
+
 } from "./Weather.components";
 
 export default function Weather({
@@ -19,22 +19,26 @@ export default function Weather({
   return( 
       <WeatherContainer>
         {
+          locationObj.city && weatherObj.list && 
+          <Header>{locationObj.city + ", " + weatherObj.city.country}</Header>
+        }
+        {
         weatherObj && weatherObj.list && 
         <ForecastDiv>
-          {
-            locationObj.city &&
-            <Header>{locationObj.city + ", " + weatherObj.city.country}</Header>
-          }
-          {
-            <Hint>{weatherObj.list[0].weather[0].description}</Hint>
-          }
-          {
-            <TemperatureDiv>
-              <Temp> Now: &nbsp;{units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.list[0].temp.day}</Temp>
-              <Temp> Min: &nbsp;{units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.list[0].temp.min}</Temp>
-              <Temp> Max: &nbsp;{units === "metric" ? <RiCelsiusFill />: <RiFahrenheitFill />}{weatherObj.list[0].temp.max}</Temp>
-              <Temp> Humidity({<Raindrop />}): {weatherObj.list[0].humidity}%</Temp>
-            </TemperatureDiv>
+          { weatherObj.list.map(day => 
+          <Day>
+            {
+              <Hint>{day.weather[0].description}</Hint>
+            }
+            {
+              <TemperatureDiv>
+                <Temp> Now: &nbsp;{day.temp.day}</Temp>
+                <Temp> Min: &nbsp;{day.temp.min}</Temp>
+                <Temp> Max: &nbsp;{day.temp.max}</Temp>
+                <Temp> Humidity: &nbsp;{day.humidity}%</Temp>
+              </TemperatureDiv>
+            }
+          </Day>)
           }
         </ForecastDiv>
         }

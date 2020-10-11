@@ -4,8 +4,6 @@ import { WiRaindrop } from "react-icons/wi";
 
 export const WeatherContainer = styled.div`
   padding: .5rem;
-  margin-top: auto;
-  min-height: 74vh;
 `
 
 export const Header = styled.h1`
@@ -17,7 +15,8 @@ export const Header = styled.h1`
 `
 
 export const ForecastDiv = styled.div`
-
+  display: flex;
+  flex-wrap: wrap;
 `
 
 export const CloudIcon = styled.span`
@@ -36,7 +35,6 @@ export const Hint = styled.em`
 `
 
 export const TemperatureDiv = styled.div`
-  width: 80%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -57,4 +55,13 @@ export const Temp = styled.h3`
 export const Raindrop = styled(WiRaindrop)`
   font-size: 1.5rem;
   color: blue;
+`
+
+export const Day = styled.div`
+  border: 2px solid lightsalmon;
+  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: .5rem;
 `
