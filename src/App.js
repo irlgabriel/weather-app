@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   GlobalStyle, 
   Container,
@@ -53,32 +53,15 @@ import FlashMessage from "react-flash-message";
           "x-rapidapi-key": "d89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a"
         }
       })
-    const res = await response.json()
-    setWeatherObj(res)
-    // Change background to match weather info
-    const main = res.list[0].weather[0].main;
-    switch(main) {
-      case "Clouds":
-        setBackground("/images/clouds.jpg")
-        break;
-      case "Rain" || "Shower":
-        setBackground("/images/rain.jpg");
-        break;
-      case "Sunny":
-        setBackground("/images/sunny.jpg");
-        break;
-      case "Snow" || "Blizzard":
-        setBackground("/images/snow.jpg");
-        break;
+      if(!response.ok) { throw response }
+      const res = await response.json()
+      if(res.cod === "404") { throw res.message }
+      setWeatherObj(res)
+      } catch(e) {
+        setFlashMessage(e);
+        setFlash(true);
       }
-    } catch(e) {
-      console.log(e)
-      setFlashMessage(e);
-      setFlash(true);
-    }
-    
-  
-
+    // Change background to match weather info
   }
   function success(position) {
     setCoords({lat: position.coords.latitude, long: position.coords.longitude})
@@ -87,6 +70,26 @@ import FlashMessage from "react-flash-message";
   function error() {
     setCoords("Unable to retrieve your location!")
   }
+
+  useEffect(() => {
+    if(weatherObj.list) {
+      switch(weatherObj.list[0].weather[0].main) {
+        case "Clouds":
+          setBackground("/images/clouds.jpg")
+          break;
+        case "Rain" || "Shower":
+          setBackground("/images/rain.jpg");
+          break;
+        case "Sunny":
+          setBackground("/images/sunny.jpg");
+          break;
+        case "Snow" || "Blizzard":
+          setBackground("/images/snow.jpg");
+          break;
+      }
+    }
+  }, [weatherObj])
+
   return (
     <Container>
       <Background img={backgroundImg} />
