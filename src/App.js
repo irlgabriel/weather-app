@@ -7,18 +7,24 @@ import { Background, SearchBar, Weather } from "./components"
 import { FlashContainer } from "./App.components";
 import FlashMessage from "react-flash-message";
 
-  function App() {
+function App() {
   const [weatherObj, setWeatherObj] = useState({});
   const [locationObj, setLocationObj] = useState({})
-  const [backgroundImg, setBackground] = useState('/images/default.jpg')
   const [coords, setCoords] = useState("");
   const [unit, setUnit] = useState(false)
+
+  // FlashMessage States
   const [showFlash, setFlash] = useState(false)
   const [flashMessage, setFlashMessage] = useState("Default Flash Message")
   
-  function resetFlash() {
-    setFlash(false);
-  }
+  // Set showFlash state back to false after message fades
+  useEffect(() => {
+    if(showFlash) {
+      setTimeout(() => {
+        setFlash(false)
+      }, 3000)
+    }
+  }, [showFlash])
 
   // Geolocation API
   function getCoords() {
@@ -36,6 +42,8 @@ import FlashMessage from "react-flash-message";
     const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
     const res = await response.json()
     setLocationObj(res);
+
+    // Now we get weather based on the city name
     getWeatherObj(res.city);
 
     // Stop showing Loading flash message
@@ -55,48 +63,30 @@ import FlashMessage from "react-flash-message";
       })
       // if(!response.ok) { throw response }
       const res = await response.json()
-      if(res.cod === "404") { throw res.message }
       setWeatherObj(res)
+      if(res.cod === "404") { throw res.message }
       } catch(e) {
         setFlashMessage(e);
         setFlash(true);
       }
-    // Change background to match weather info
   }
+
+  // Callbacks for HTML Geolocation function
   function success(position) {
     setCoords({lat: position.coords.latitude, long: position.coords.longitude})
     getCity(position.coords.latitude, position.coords.longitude)
   }
+
   function error() {
     setCoords("Unable to retrieve your location!")
   }
-
-  useEffect(() => {
-    if(weatherObj.list) {
-      switch(weatherObj.list[0].weather[0].main) {
-        case "Clouds":
-          setBackground("/images/clouds.jpg")
-          break;
-        case "Rain" || "Shower":
-          setBackground("/images/rain.jpg");
-          break;
-        case "Sunny":
-          setBackground("/images/sunny.jpg");
-          break;
-        case "Snow" || "Blizzard":
-          setBackground("/images/snow.jpg");
-          break;
-      }
-    }
-  }, [weatherObj])
-
   return (
     <Container>
-      <Background img={backgroundImg} />
+      <Background />
       {
         showFlash && 
         <FlashContainer>
-          <FlashMessage transitionEnd={resetFlash} duration={3000} persistOnHover={true}>{flashMessage}</FlashMessage>
+          <FlashMessage duration={3000} persistOnHover={true}>{flashMessage}</FlashMessage>
         </FlashContainer>
       }
         <GlobalStyle />

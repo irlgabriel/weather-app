@@ -25,11 +25,11 @@ export default function SearchBar({
     getWeatherObj(location, units);
   }
 
+
   return(
     <Form onSubmit={submitHandler}>
       <InputDiv>
         <TextInput defaultValue={locationObj.city} name="location" placeholder="City Name.." />
-        <MyLocation onClick={getCoords} type="button">My Location</MyLocation>
       </InputDiv>
       <Label htmlFor="units">Units: </Label>
       <SelectInput name="units" defaultValue="metric">

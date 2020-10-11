@@ -65,7 +65,7 @@ export const Day = styled.div`
   flex-direction: column;
   align-items: center;
   margin: .5rem;
-  transition: .5s ease-in-out;
+  transition: .3s ease-in-out;
   user-select: none;
 
   &:hover {
