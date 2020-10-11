@@ -14,14 +14,7 @@ import {
 export default function Weather({
   weatherObj,
   locationObj,
-  units
 }) {
-  function addDays(date, days) {
-    var result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-  }
-
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   let d = new Date();
   let dayName = days[d.getDay()];

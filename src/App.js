@@ -10,8 +10,7 @@ import FlashMessage from "react-flash-message";
 function App() {
   const [weatherObj, setWeatherObj] = useState({});
   const [locationObj, setLocationObj] = useState({})
-  const [coords, setCoords] = useState("");
-  const [unit, setUnit] = useState(false)
+  const [units, setUnits] = useState("metric")
 
   // FlashMessage States
   const [showFlash, setFlash] = useState(false)
@@ -26,6 +25,13 @@ function App() {
     }
   }, [showFlash])
 
+  // Call OpenWeather API after locationObj is changed
+  useEffect(() => {
+    if(locationObj.city) {
+      getWeatherObj()
+    }
+  }, [locationObj])
+
   // Geolocation API
   function getCoords() {
     if(navigator.geolocation) {
@@ -33,7 +39,8 @@ function App() {
       setFlash(true);
       navigator.geolocation.getCurrentPosition(success, error)
     } else {
-      setCoords("Geolocation not supported on you browser!")
+      setFlashMessage("Geolocation not supported on you browser!")
+      setFlash(true);
     }
   }
 
@@ -42,19 +49,12 @@ function App() {
     const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
     const res = await response.json()
     setLocationObj(res);
-
-    // Now we get weather based on the city name
-    getWeatherObj(res.city);
-
-    // Stop showing Loading flash message
-    setFlash(false);
   }
 
   // OpenWeather API
-  async function getWeatherObj(city, units = "metric") {
-    setUnit(units)
+  async function getWeatherObj() {
     try {
-      const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/forecast/daily?q=${city}&cnt=7&units=${units}`, {
+      const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/forecast/daily?q=${locationObj.city}&cnt=7&units=${units}`, {
         "method": "GET",
         "headers": {
           "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
@@ -73,12 +73,11 @@ function App() {
 
   // Callbacks for HTML Geolocation function
   function success(position) {
-    setCoords({lat: position.coords.latitude, long: position.coords.longitude})
     getCity(position.coords.latitude, position.coords.longitude)
   }
-
   function error() {
-    setCoords("Unable to retrieve your location!")
+    setFlashMessage("Cannot Get Position!");
+    showFlash(true);
   }
   return (
     <Container>
@@ -94,14 +93,12 @@ function App() {
         getWeatherObj={getWeatherObj}
         locationObj={locationObj}
         setLocationObj={setLocationObj}
-        getCoords={getCoords}
-        weatherObj={weatherObj}
       />
       <Weather 
         getWeatherObj={getWeatherObj}
         weatherObj={weatherObj}
         locationObj={locationObj}
-        units={unit}
+        units={units}
       />
     </Container>
 
