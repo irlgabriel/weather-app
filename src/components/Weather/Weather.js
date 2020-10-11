@@ -25,6 +25,7 @@ export default function Weather({
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   let d = new Date();
   let dayName = days[d.getDay()];
+  let dayIndex = days.indexOf(dayName);
   return( 
       <WeatherContainer>
         {
@@ -35,8 +36,8 @@ export default function Weather({
         weatherObj && weatherObj.list && 
         <ForecastDiv>
           { weatherObj.list.map(day => 
-          <Day>
-            <Header>{dayName}</Header>
+          <Day key={days[(dayIndex) % 7]}>
+            <Header>{days[(dayIndex ++) % 7]}</Header>
             <Hint>{day.weather[0].description}</Hint>
             {
               <TemperatureDiv>

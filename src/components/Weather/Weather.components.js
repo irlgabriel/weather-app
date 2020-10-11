@@ -17,6 +17,7 @@ export const Header = styled.h1`
 export const ForecastDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `
 
 export const CloudIcon = styled.span`
@@ -64,6 +65,12 @@ export const Day = styled.div`
   flex-direction: column;
   align-items: center;
   margin: .5rem;
+  transition: .5s ease-in-out;
+  user-select: none;
+
+  &:hover {
+    transform: scale(1.05)
+  }
 
   @media screen and (max-width: 768px) {
     width: 95%;
