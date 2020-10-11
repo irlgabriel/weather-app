@@ -16,6 +16,15 @@ export default function Weather({
   locationObj,
   units
 }) {
+  function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+
+  let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  let d = new Date();
+  let dayName = days[d.getDay()];
   return( 
       <WeatherContainer>
         {
@@ -27,12 +36,12 @@ export default function Weather({
         <ForecastDiv>
           { weatherObj.list.map(day => 
           <Day>
-            {
-              <Hint>{day.weather[0].description}</Hint>
-            }
+            <Header>{dayName}</Header>
+            <Hint>{day.weather[0].description}</Hint>
             {
               <TemperatureDiv>
-                <Temp> Now: &nbsp;{day.temp.day}</Temp>
+                
+                <Temp> {(new Date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: &nbsp;{day.temp.day}</Temp>
                 <Temp> Min: &nbsp;{day.temp.min}</Temp>
                 <Temp> Max: &nbsp;{day.temp.max}</Temp>
                 <Temp> Humidity: &nbsp;{day.humidity}%</Temp>

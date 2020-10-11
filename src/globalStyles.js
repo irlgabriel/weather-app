@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   max-width: 1300px;

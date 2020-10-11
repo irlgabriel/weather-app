@@ -64,4 +64,8 @@ export const Day = styled.div`
   flex-direction: column;
   align-items: center;
   margin: .5rem;
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+  }
 `

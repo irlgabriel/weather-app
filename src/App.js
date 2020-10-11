@@ -10,11 +10,16 @@ import FlashMessage from "react-flash-message";
   function App() {
   const [weatherObj, setWeatherObj] = useState({});
   const [locationObj, setLocationObj] = useState({})
-  const [backgroundImg, setBackground] = useState('/images/sunny.jpg')
+  const [backgroundImg, setBackground] = useState('/images/default.jpg')
   const [coords, setCoords] = useState("");
   const [unit, setUnit] = useState(false)
   const [showFlash, setFlash] = useState(false)
   const [flashMessage, setFlashMessage] = useState("Default Flash Message")
+  
+  function resetFlash() {
+    setFlash(false);
+  }
+
   // Geolocation API
   function getCoords() {
     if(navigator.geolocation) {
@@ -49,7 +54,6 @@ import FlashMessage from "react-flash-message";
         }
       })
     const res = await response.json()
-    console.log(res)
     setWeatherObj(res)
     // Change background to match weather info
     const main = res.list[0].weather[0].main;
@@ -69,6 +73,8 @@ import FlashMessage from "react-flash-message";
       }
     } catch(e) {
       console.log(e)
+      setFlashMessage(e);
+      setFlash(true);
     }
     
   
@@ -83,14 +89,14 @@ import FlashMessage from "react-flash-message";
   }
   return (
     <Container>
+      <Background img={backgroundImg} />
       {
         showFlash && 
         <FlashContainer>
-          <FlashMessage duration={50000} persistOnHover={true}>{flashMessage}</FlashMessage>
+          <FlashMessage transitionEnd={resetFlash} duration={50000} persistOnHover={true}>{flashMessage}</FlashMessage>
         </FlashContainer>
       }
         <GlobalStyle />
-      <Background img={backgroundImg} />
       <SearchBar
         getWeatherObj={getWeatherObj}
         locationObj={locationObj}
@@ -105,6 +111,7 @@ import FlashMessage from "react-flash-message";
         units={unit}
       />
     </Container>
+
   );
 }
 
