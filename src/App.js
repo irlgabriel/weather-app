@@ -32,6 +32,8 @@ import FlashMessage from "react-flash-message";
     const res = await response.json()
     setLocationObj(res);
     getWeatherObj(res.city);
+
+    // Stop showing Loading flash message
     setFlash(false);
   }
 
@@ -39,7 +41,7 @@ import FlashMessage from "react-flash-message";
   async function getWeatherObj(city, units = "metric") {
     setUnit(units)
     try {
-      const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/find?cnt=1&mode=null&lon=0&type=link%252C%20accurate&lat=0&units=${units}&q=${city}`, {
+      const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/forecast/daily?q=${city}&cnt=7&units=${units}`, {
         "method": "GET",
         "headers": {
           "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
@@ -47,8 +49,8 @@ import FlashMessage from "react-flash-message";
         }
       })
     const res = await response.json()
-    console.log(res.list[0])
-    setWeatherObj(res.list[0])
+    console.log(res)
+    setWeatherObj(res)
     // Change background to match weather info
     const main = res.list[0].weather[0].main;
     switch(main) {
@@ -80,6 +82,8 @@ import FlashMessage from "react-flash-message";
     setCoords("Unable to retrieve your location!")
   }
   return (
+    <>
+    <Background img={backgroundImg} />
     <Container>
       {
         showFlash && 
@@ -87,8 +91,7 @@ import FlashMessage from "react-flash-message";
           <FlashMessage duration={50000} persistOnHover={true}>{flashMessage}</FlashMessage>
         </FlashContainer>
       }
-        <GlobalStyle />
-      <Background img={backgroundImg} />
+      <GlobalStyle />
       <SearchBar
         getWeatherObj={getWeatherObj}
         locationObj={locationObj}
@@ -102,6 +105,7 @@ import FlashMessage from "react-flash-message";
         units={unit}
       />
     </Container>
+    </>
   );
 }
 

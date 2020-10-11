@@ -19,21 +19,21 @@ export default function Weather({
   return( 
       <WeatherContainer>
         {
-        weatherObj && weatherObj.weather && 
+        weatherObj && weatherObj.list && 
         <ForecastDiv>
           {
             locationObj.city &&
-            <Header>{locationObj.city}</Header>
+            <Header>{locationObj.city + ", " + weatherObj.city.country}</Header>
           }
           {
-            <Hint>{weatherObj.weather[0].description}</Hint>
+            <Hint>{weatherObj.list[0].weather[0].description}</Hint>
           }
           {
             <TemperatureDiv>
-              <Temp> Now: &nbsp;{units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp}</Temp>
-              <Temp> Min: &nbsp;{units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp_min}</Temp>
-              <Temp> Max: &nbsp;{units === "metric" ? <RiCelsiusFill />: <RiFahrenheitFill />}{weatherObj.main.temp_max}</Temp>
-              <Temp> Humidity({<Raindrop />}): {weatherObj.main.humidity}%</Temp>
+              <Temp> Now: &nbsp;{units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.list[0].temp.day}</Temp>
+              <Temp> Min: &nbsp;{units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.list[0].temp.min}</Temp>
+              <Temp> Max: &nbsp;{units === "metric" ? <RiCelsiusFill />: <RiFahrenheitFill />}{weatherObj.list[0].temp.max}</Temp>
+              <Temp> Humidity({<Raindrop />}): {weatherObj.list[0].humidity}%</Temp>
             </TemperatureDiv>
           }
         </ForecastDiv>
