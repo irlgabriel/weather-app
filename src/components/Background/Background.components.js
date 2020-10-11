@@ -11,5 +11,6 @@ export const BlurredBackground = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: blur(.5rem);
+  filter: blur(.25rem);
+  transition: all .5s ease;
 `

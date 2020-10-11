@@ -3,18 +3,23 @@ import {
   GlobalStyle, 
   Container,
 } from "./globalStyles"
-
 import { Background, SearchBar, Weather } from "./components"
+import { FlashContainer } from "./App.components";
+import FlashMessage from "react-flash-message";
 
   function App() {
   const [weatherObj, setWeatherObj] = useState({});
   const [locationObj, setLocationObj] = useState({})
-  const [backgroundImg, setBackground] = useState('/images/rain.jpg')
+  const [backgroundImg, setBackground] = useState('/images/sunny.jpg')
   const [coords, setCoords] = useState("");
   const [unit, setUnit] = useState(false)
+  const [showFlash, setFlash] = useState(false)
+  const [flashMessage, setFlashMessage] = useState("Default Flash Message")
   // Geolocation API
   function getCoords() {
     if(navigator.geolocation) {
+      setFlashMessage("Loading...");
+      setFlash(true);
       navigator.geolocation.getCurrentPosition(success, error)
     } else {
       setCoords("Geolocation not supported on you browser!")
@@ -26,7 +31,8 @@ import { Background, SearchBar, Weather } from "./components"
     const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
     const res = await response.json()
     setLocationObj(res);
-    getWeatherObj(res.city)
+    getWeatherObj(res.city);
+    setFlash(false);
   }
 
   // OpenWeather API
@@ -43,12 +49,28 @@ import { Background, SearchBar, Weather } from "./components"
     const res = await response.json()
     console.log(res.list[0])
     setWeatherObj(res.list[0])
+    // Change background to match weather info
+    const main = res.list[0].weather[0].main;
+    switch(main) {
+      case "Clouds":
+        setBackground("/images/clouds.jpg")
+        break;
+      case "Rain" || "Shower":
+        setBackground("/images/rain.jpg");
+        break;
+      case "Sunny":
+        setBackground("/images/sunny.jpg");
+        break;
+      case "Snow" || "Blizzard":
+        setBackground("/images/snow.jpg");
+        break;
+      }
     } catch(e) {
       console.log(e)
     }
-
-    // Change background to match weather info
     
+  
+
   }
   function success(position) {
     setCoords({lat: position.coords.latitude, long: position.coords.longitude})
@@ -59,6 +81,12 @@ import { Background, SearchBar, Weather } from "./components"
   }
   return (
     <Container>
+      {
+        showFlash && 
+        <FlashContainer>
+          <FlashMessage duration={50000} persistOnHover={true}>{flashMessage}</FlashMessage>
+        </FlashContainer>
+      }
         <GlobalStyle />
       <Background img={backgroundImg} />
       <SearchBar

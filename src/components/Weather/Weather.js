@@ -30,9 +30,9 @@ export default function Weather({
           }
           {
             <TemperatureDiv>
-              <Temp> Now: &nbsp;{units == "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp}</Temp>
-              <Temp> Min: &nbsp;{units == "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp_min}</Temp>
-              <Temp> Max: &nbsp;{units == "metric" ? <RiCelsiusFill />: <RiFahrenheitFill />}{weatherObj.main.temp_max}</Temp>
+              <Temp> Now: &nbsp;{units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp}</Temp>
+              <Temp> Min: &nbsp;{units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />}{weatherObj.main.temp_min}</Temp>
+              <Temp> Max: &nbsp;{units === "metric" ? <RiCelsiusFill />: <RiFahrenheitFill />}{weatherObj.main.temp_max}</Temp>
               <Temp> Humidity({<Raindrop />}): {weatherObj.main.humidity}%</Temp>
             </TemperatureDiv>
           }
