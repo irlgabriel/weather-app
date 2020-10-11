@@ -53,7 +53,7 @@ import FlashMessage from "react-flash-message";
           "x-rapidapi-key": "d89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a"
         }
       })
-      if(!response.ok) { throw response }
+      // if(!response.ok) { throw response }
       const res = await response.json()
       if(res.cod === "404") { throw res.message }
       setWeatherObj(res)
@@ -96,7 +96,7 @@ import FlashMessage from "react-flash-message";
       {
         showFlash && 
         <FlashContainer>
-          <FlashMessage transitionEnd={resetFlash} duration={50000} persistOnHover={true}>{flashMessage}</FlashMessage>
+          <FlashMessage transitionEnd={resetFlash} duration={3000} persistOnHover={true}>{flashMessage}</FlashMessage>
         </FlashContainer>
       }
         <GlobalStyle />
