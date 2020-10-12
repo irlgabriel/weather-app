@@ -18,7 +18,7 @@ function App() {
   
   // Set showFlash state back to false after message fades
   useEffect(() => {
-    if(showFlash) {
+    if(showFlash) { 
       setTimeout(() => {
         setFlash(false)
       }, 3000)
@@ -55,20 +55,20 @@ function App() {
   async function getWeatherObj() {
     try {
       const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/forecast/daily?q=${locationObj.city}&cnt=7&units=${units}`, {
-        "method": "GET",
-        "headers": {
-          "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-          "x-rapidapi-key": "d89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a"
-        }
-      })
-      // if(!response.ok) { throw response }
-      const res = await response.json()
-      setWeatherObj(res)
-      if(res.cod === "404") { throw res.message }
-      } catch(e) {
-        setFlashMessage(e);
-        setFlash(true);
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+        "x-rapidapi-key": "d89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a"
       }
+    })
+    // if(!response.ok) { throw response }
+    const res = await response.json()
+    setWeatherObj(res)
+    if(res.cod === "404") { throw res.message }
+    } catch(e) {
+      setFlashMessage(e);
+      setFlash(true);
+    }
   }
 
   // Callbacks for HTML Geolocation function
@@ -79,6 +79,7 @@ function App() {
     setFlashMessage("Cannot Get Position!");
     showFlash(true);
   }
+
   return (
     <Container>
       <Background />
@@ -90,6 +91,8 @@ function App() {
       }
         <GlobalStyle />
       <SearchBar
+        setFlash={setFlash}
+        setFlashMessage={setFlashMessage}
         getWeatherObj={getWeatherObj}
         locationObj={locationObj}
         setLocationObj={setLocationObj}

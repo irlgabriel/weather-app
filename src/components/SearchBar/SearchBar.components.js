@@ -5,6 +5,10 @@ export const TextInput = styled.input`
   width: 100%;
   height: 100%;
   padding: 0 .5rem;
+  @media screen and (max-width: 768px) {
+    font-size: 1.5rem;
+
+  }
 `
 
 export const Label = styled.label`
@@ -20,11 +24,9 @@ export const InputDiv = styled.div`
   align-items: center;
 
   @media screen and (max-width: 768px) {
-    width: 90%;
+    width: 100%;
+    height: 50px;
   }
-
-`
-export const SelectInput = styled.select`
 
 `
 
@@ -42,10 +44,6 @@ export const MyLocation = styled.button`
 export const ColumnFlex = styled.div`
   display: flex;
   flex-direction: column;
-
-`
-
-export const Option = styled.option`
 
 `
 
@@ -72,5 +70,9 @@ export const Button = styled.button`
   &:hover {
     color: lightcoral;
     background: white;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem 2rem;
   }
 `

@@ -35,7 +35,7 @@ export default function Weather({
             {
               <TemperatureDiv>
                 
-                <Temp> {(new Date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: &nbsp;{day.temp.day}</Temp>
+                <Temp> {(new Date()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: &nbsp;{day.temp.day}</Temp>
                 <Temp> Min: &nbsp;{day.temp.min}</Temp>
                 <Temp> Max: &nbsp;{day.temp.max}</Temp>
                 <Temp> Humidity: &nbsp;{day.humidity}%</Temp>

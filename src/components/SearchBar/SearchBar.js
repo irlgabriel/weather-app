@@ -3,26 +3,27 @@ import {
   Form,
   TextInput,
   Button,
-  SelectInput,
-  Option,
   Label,
   InputDiv,
-  MyLocation,
 } from "./SearchBar.components";
 
 export default function SearchBar({
+  setFlash,
+  setFlashMessage,
   getWeatherObj,
   locationObj,
   setLocationObj,
-  getCoords,
-  weatherObj,
 }) {
   function submitHandler(e) {
     e.preventDefault();
-    const units = e.target.units.value;
-    const location = e.target.location.value;
-    setLocationObj({city: location})
-    getWeatherObj(location, units);
+    const location = e.target.location.value
+    if(location === "") {
+      setFlashMessage("bad query");
+      setFlash(true)
+    } else {
+      setLocationObj({city: location})
+      getWeatherObj();
+    }
   }
 
 
@@ -31,11 +32,6 @@ export default function SearchBar({
       <InputDiv>
         <TextInput defaultValue={locationObj.city} name="location" placeholder="City Name.." />
       </InputDiv>
-      <Label htmlFor="units">Units: </Label>
-      <SelectInput name="units" defaultValue="metric">
-        <Option value="metric">Metric</Option>
-        <Option value="imperial">Imperial</Option>
-      </SelectInput>
       <Button>Search</Button>
     </Form>
   )
