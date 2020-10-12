@@ -11,6 +11,9 @@ import {
   Temp,
   Day,
   WeatherIcon,
+  SunsetIcon,
+  SunriseIcon,
+  Raindrop
 } from "./Weather.components";
 
 export default function Weather({
@@ -63,7 +66,9 @@ export default function Weather({
                 <Temp> {(new Date()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: &nbsp;{day.temp.day}{symbol}</Temp>
                 <Temp> Min: &nbsp;{day.temp.min}{symbol}</Temp>
                 <Temp> Max: &nbsp;{day.temp.max}{symbol}</Temp>
-                <Temp> Humidity: &nbsp;{day.humidity}%</Temp>
+                <Temp> Humidity({<Raindrop />}): &nbsp;{day.humidity}%</Temp>
+                <Temp> Sunrise({<SunriseIcon />}): {new Date(day.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</Temp>
+                <Temp> Sunset({<SunsetIcon />}): {new Date(day.sunset * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</Temp>
               </TemperatureDiv>
             }
           </Day>)

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { WiRaindrop } from "react-icons/wi";
+import { FiSunset, FiSunrise } from "react-icons/fi";
 
 
 export const WeatherContainer = styled.div`
@@ -53,10 +54,6 @@ export const Temp = styled.h3`
   font-weight: bold;
 `
 
-export const Raindrop = styled(WiRaindrop)`
-  font-size: 1.5rem;
-  color: blue;
-`
 
 export const Day = styled.div`
   position: relative;
@@ -68,7 +65,7 @@ export const Day = styled.div`
   transition: .3s ease-in-out;
   user-select: none;
   border-radius: 5px;
-  background: lightskyblue;
+  background: rgb(75.3%, 75.3%, 75.3%);
 
   &:hover {
     transform: scale(1.05)
@@ -89,4 +86,14 @@ export const WeatherIcon = styled.span`
     font-size: 2.5rem;
   }
 `
+export const SunsetIcon = styled(FiSunset)`
+  color: orange;
+`
 
+export const SunriseIcon = styled(FiSunrise)`
+  color: orange;
+`
+
+export const Raindrop = styled(WiRaindrop)`
+  color: blue;
+`

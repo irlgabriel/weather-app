@@ -21,12 +21,14 @@ function App() {
   const [flashMessage, setFlashMessage] = useState("Default Flash Message")
   
   // Set symbol when unit changes
-  /*
-  useEffect(() => {
-    setSymbol(units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />);
-    getWeatherObj()
+  
+  useEffect(()   => {
+    if(weatherObj.list) {
+      setSymbol(units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />);
+      getWeatherObj()
+    }
   }, [units])
-  */
+  
 
   // Set showFlash state back to false after message fades
   useEffect(() => {
