@@ -21,10 +21,12 @@ function App() {
   const [flashMessage, setFlashMessage] = useState("Default Flash Message")
   
   // Set symbol when unit changes
+  /*
   useEffect(() => {
     setSymbol(units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />);
     getWeatherObj()
   }, [units])
+  */
 
   // Set showFlash state back to false after message fades
   useEffect(() => {
@@ -63,6 +65,8 @@ function App() {
 
   // OpenWeather API
   async function getWeatherObj() {
+    setFlashMessage("Loading...")
+    setFlash(true);
     try {
       const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/forecast/daily?q=${locationObj.city}&cnt=7&units=${units}`, {
       "method": "GET",
@@ -74,6 +78,7 @@ function App() {
     // if(!response.ok) { throw response }
     const res = await response.json()
     setWeatherObj(res)
+    setFlash(false)
     if(res.cod === "404") { throw res.message }
     } catch(e) {
       setFlashMessage(e);

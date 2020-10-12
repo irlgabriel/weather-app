@@ -20,6 +20,7 @@ export const FlashContainer = styled.div`
   align-items: center;
   text-align: center;
   padding: .5rem 1.25rem;
+  margin: .5rem 0;
   background: lightcoral;
   color: white;
   border-radius: 5px

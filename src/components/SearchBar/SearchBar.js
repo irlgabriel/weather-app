@@ -21,7 +21,6 @@ export default function SearchBar({
       setFlash(true)
     } else {
       setLocationObj({city: location})
-      getWeatherObj();
     }
   }
 

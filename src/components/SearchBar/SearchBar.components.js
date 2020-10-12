@@ -5,6 +5,12 @@ export const TextInput = styled.input`
   width: 100%;
   height: 100%;
   padding: 0 .5rem;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+
   @media screen and (max-width: 768px) {
     font-size: 1.5rem;
 
@@ -70,6 +76,11 @@ export const Button = styled.button`
   &:hover {
     color: lightcoral;
     background: white;
+  }
+
+  &:active {
+    outline: none;
+    border: none;
   }
 
   @media screen and (max-width: 768px) {
