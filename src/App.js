@@ -4,18 +4,28 @@ import {
   Container,
 } from "./globalStyles"
 import { Background, SearchBar, Weather } from "./components"
-import { FlashContainer } from "./App.components";
+import { FlashContainer, ToggleUnit, ToggleDiv, RightToggle, LeftToggle } from "./App.components";
 import FlashMessage from "react-flash-message";
+import { RiCelsiusFill, RiFahrenheitFill } from "react-icons/ri";
+
 
 function App() {
+  console.log("App runs one")
   const [weatherObj, setWeatherObj] = useState({});
   const [locationObj, setLocationObj] = useState({})
   const [units, setUnits] = useState("metric")
+  const [symbol, setSymbol] = useState(<RiCelsiusFill />)
 
   // FlashMessage States
   const [showFlash, setFlash] = useState(false)
   const [flashMessage, setFlashMessage] = useState("Default Flash Message")
   
+  // Set symbol when unit changes
+  useEffect(() => {
+    setSymbol(units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />);
+    getWeatherObj()
+  }, [units])
+
   // Set showFlash state back to false after message fades
   useEffect(() => {
     if(showFlash) { 
@@ -80,9 +90,18 @@ function App() {
     showFlash(true);
   }
 
+  function toggleUnits() {
+    setUnits(units === "metric" ? "imperial" : "metric");
+  }
+
   return (
     <Container>
       <Background />
+      <ToggleDiv>
+        <LeftToggle><RiCelsiusFill /></LeftToggle>
+        <RightToggle><RiFahrenheitFill /></RightToggle>
+        <ToggleUnit onClick={toggleUnits} units={units}/>
+      </ToggleDiv>
       {
         showFlash && 
         <FlashContainer>
@@ -102,6 +121,7 @@ function App() {
         weatherObj={weatherObj}
         locationObj={locationObj}
         units={units}
+        symbol={symbol}
       />
     </Container>
 

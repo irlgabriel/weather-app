@@ -59,14 +59,16 @@ export const Raindrop = styled(WiRaindrop)`
 `
 
 export const Day = styled.div`
-  border: 2px solid lightsalmon;
-  padding: .5rem;
+  position: relative;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: .5rem;
   transition: .3s ease-in-out;
   user-select: none;
+  border-radius: 5px;
+  background: lightskyblue;
 
   &:hover {
     transform: scale(1.05)
@@ -76,3 +78,15 @@ export const Day = styled.div`
     width: 95%;
   }
 `
+
+export const WeatherIcon = styled.span`
+  font-size : 1.5rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+`
+

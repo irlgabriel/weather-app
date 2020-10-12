@@ -3,7 +3,6 @@ import {
   Form,
   TextInput,
   Button,
-  Label,
   InputDiv,
 } from "./SearchBar.components";
 
