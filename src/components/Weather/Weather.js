@@ -3,14 +3,15 @@ import { FiSunset, FiSunrise } from "react-icons/fi"
 
 import {
   Container,
-  Card,
   CardHeader,
   CardBody,
   CardTitle,
   CardSubtitle,
   Row,
-  Col
+  Col, 
+  Card
 } from "reactstrap"
+
 
 export default function Weather({
   weatherObj,
@@ -32,8 +33,8 @@ export default function Weather({
         weatherObj && weatherObj.list && 
         weatherObj.list.map(
         day => 
-            <Col key={dayIndex} xs="12" sm="6" md="4" lg="3">
-              <Card className="m-1 bg-light text-dark" key={days[(dayIndex) % 7]}>
+            <Col className="m-0 justify-content-between" key={dayIndex} xs="12" sm="6" md="4" lg="3">
+              <Card className="m-0 mt-3 bg-light text-dark" key={days[(dayIndex) % 7]}>
                 <CardHeader>
                   <CardTitle><h4>{days[(dayIndex ++) % 7]}</h4></CardTitle>
                   <CardSubtitle><span>{day.weather[0].description}</span></CardSubtitle>
