@@ -31,12 +31,12 @@ export default function SearchBar({
     <Form onSubmit={submitHandler}>
       <FormGroup>
         <FormLabel className="text-center w-100 h2" htmlFor="location">City</FormLabel>
-        <FormInput defaultValue={locationObj.city} name="location" placeholder="City Name.." />
+        <FormInput style={{height: '50px', fontSize: "1.5rem"}} defaultValue={locationObj.city} name="location" placeholder="City Name.." />
       </FormGroup>
       <FormGroup  className="text-center">
-        <Button>Search</Button>
+        <Button className="btn-outline-light btn-lg btn">Search</Button>
         <p className="mb-0">Or</p>
-        <Button type="button" onClick={getCoords} color="primary">Get My Location</Button>
+        <Button type="button" className="btn-lg btn btn-outline-light" onClick={getCoords} color="info">Get My Location</Button>
       </FormGroup>
     </Form>
   )

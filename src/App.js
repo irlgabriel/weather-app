@@ -101,7 +101,7 @@ function App() {
   }
 
   return (
-    <Container className="bg-dark px-0 text-light" style={{minHeight: "100vh"}} fluid={true} >
+    <Container className="bg-secondary px-0 text-light" style={{minHeight: "100vh"}} fluid={true} >
       <GlobalStyle />
       {
         showFlash && 

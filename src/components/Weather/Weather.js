@@ -36,18 +36,18 @@ export default function Weather({
             <Col className="m-0 justify-content-between" key={dayIndex} xs="12" sm="6" md="4" lg="3">
               <Card className="m-0 mt-3 bg-light text-dark" key={days[(dayIndex) % 7]}>
                 <CardHeader>
-                  <CardTitle><h4>{days[(dayIndex ++) % 7]}</h4></CardTitle>
-                  <CardSubtitle><span>{day.weather[0].description}</span></CardSubtitle>
+                  <CardTitle><h3>{days[(dayIndex ++) % 7]}</h3></CardTitle>
+                  <CardSubtitle><em style={{fontSize: "1.3rem"}}>{day.weather[0].description}</em></CardSubtitle>
                 </CardHeader>
                 {
                   <CardBody>
                     
-                    <div style={{display: "flex", alignItems: "center"}}>Current: &nbsp;{parseInt(day.temp.day)}{symbol}</div>
-                    <div style={{display: "flex", alignItems: "center"}}>Min: &nbsp;{parseInt(day.temp.min)}{symbol}</div>
-                    <div style={{display: "flex", alignItems: "center"}}>Max: &nbsp;{parseInt(day.temp.max)}{symbol}</div>
-                    <p className="mb-0">Humidity: &nbsp;{day.humidity}%</p>
-                    <p className="mb-0">Sunrise({<FiSunrise/>}): {new Date(day.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
-                    <p className="mb-0">Sunset({<FiSunset />}): {new Date(day.sunset * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                    <h4 style={{marginBottom: "4px", display: "flex", alignItems: "center"}}>Current: &nbsp;{parseInt(day.temp.day)}{symbol}</h4>
+                    <h4 style={{marginBottom: "4px", display: "flex", alignItems: "center"}} className="mb-0">Min: &nbsp;{parseInt(day.temp.min)}{symbol}</h4>
+                    <h4 style={{marginBottom: "4px", display: "flex", alignItems: "center"}} className="mb-0">Max: &nbsp;{parseInt(day.temp.max)}{symbol}</h4>
+                    <h4 className="mb-3">Humidity: &nbsp;{day.humidity}%</h4>
+                    <h4 className="mb-3">Sunrise({<FiSunrise/>}): {new Date(day.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</h4>
+                    <h4 className="mb-3">Sunset({<FiSunset />}): {new Date(day.sunset * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</h4>
                   </CardBody>
                 }
               </Card>
