@@ -1,89 +1,17 @@
-import styled from "styled-components";
+import styled from "styled-components"
+import { Input, Label, Button } from "reactstrap"
 
-export const TextInput = styled.input`
-  border: none;
-  width: 100%;
-  height: 100%;
-  padding: 0 .5rem;
-
-  &:focus {
-    border: none;
-    outline: none;
-  }
-
-  @media screen and (max-width: 768px) {
-    font-size: 1.5rem;
-
-  }
-`
-
-export const Label = styled.label`
-
-  `
-export const InputDiv = styled.div`
-  margin: .5rem;
-  position: relative;
+export const FormInput = styled(Input)`
   width: 50%;
-  height: 30px;
-  border: 1px solid lightgray;
-  display: flex;
-  align-items: center;
+  margin: 0 auto;
+  position: relative;
+  padding-right: 30px;
 
   @media screen and (max-width: 768px) {
-    width: 100%;
-    height: 50px;
+    width: 90%; 
   }
-
 `
 
-export const MyLocation = styled.button`
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  height: 28px;
-  width: 75px;
-  background: lightcoral;
-  color: white;
-  border: none;
-`
+export const FormLabel = styled(Label)`
 
-export const ColumnFlex = styled.div`
-  display: flex;
-  flex-direction: column;
-
-`
-
-export const Form = styled.form`
-  padding: .5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: .5rem;
-`
-
-export const Button = styled.button`
-  padding: .375rem 1rem;
-  border: none;
-  border-radius: 3px;
-  background: 1px solid lightseagreen;
-  color: black;
-  background-color: white;
-  margin: .5rem 0;
-  color: white;
-  background: lightcoral;
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: lightcoral;
-    background: white;
-  }
-
-  &:active {
-    outline: none;
-    border: none;
-  }
-
-  @media screen and (max-width: 768px) {
-    padding: 1rem 2rem;
-  }
 `

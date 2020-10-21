@@ -1,17 +1,19 @@
 import React from "react"
 import {
   Form,
-  TextInput,
-  Button,
-  InputDiv,
-} from "./SearchBar.components";
+  FormGroup,
+  Button
+} from "reactstrap"
+import { FormInput, FormLabel, LocationButton } from "./SearchBar.components"
+import { FaSearchLocation } from "react-icons/fa"
+
 
 export default function SearchBar({
   setFlash,
   setFlashMessage,
-  getWeatherObj,
   locationObj,
   setLocationObj,
+  getCoords
 }) {
   function submitHandler(e) {
     e.preventDefault();
@@ -27,10 +29,15 @@ export default function SearchBar({
 
   return(
     <Form onSubmit={submitHandler}>
-      <InputDiv>
-        <TextInput defaultValue={locationObj.city} name="location" placeholder="City Name.." />
-      </InputDiv>
-      <Button>Search</Button>
+      <FormGroup>
+        <FormLabel className="text-center w-100 h2" htmlFor="location">City</FormLabel>
+        <FormInput defaultValue={locationObj.city} name="location" placeholder="City Name.." />
+      </FormGroup>
+      <FormGroup  className="text-center">
+        <Button>Search</Button>
+        <p className="mb-0">Or</p>
+        <Button type="button" onClick={getCoords} color="primary">Get My Location</Button>
+      </FormGroup>
     </Form>
   )
 }

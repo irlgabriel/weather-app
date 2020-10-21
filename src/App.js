@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { 
   GlobalStyle, 
-  Container,
 } from "./globalStyles"
-import { Background, SearchBar, Weather } from "./components"
-import { FlashContainer, ToggleUnit, ToggleDiv, RightToggle, LeftToggle } from "./App.components";
+import "bootstrap/dist/css/bootstrap.min.css"
+
+// Components
+import { Container, Row, Col, Alert } from "reactstrap"
+import { SearchBar, Weather } from "./components"
+import { FlashContainer } from "./App.components";
 import FlashMessage from "react-flash-message";
 import { RiCelsiusFill, RiFahrenheitFill } from "react-icons/ri";
 
-
 function App() {
-  console.log("App runs one")
   const [weatherObj, setWeatherObj] = useState({});
   const [locationObj, setLocationObj] = useState({})
   const [units, setUnits] = useState("metric")
@@ -21,7 +22,6 @@ function App() {
   const [flashMessage, setFlashMessage] = useState("Default Flash Message")
   
   // Set symbol when unit changes
-  
   useEffect(()   => {
     if(weatherObj.list) {
       setSymbol(units === "metric" ? <RiCelsiusFill /> : <RiFahrenheitFill />);
@@ -58,6 +58,15 @@ function App() {
     }
   }
 
+  // Callbacks for HTML Geolocation function
+  function success(position) {
+    getCity(position.coords.latitude, position.coords.longitude)
+  }
+  function error() {
+    setFlashMessage("Cannot Get Position!");
+    setFlash(true);
+  }
+
   // Use HTML5 Geolocation's coords to get city name
   async function getCity(lat, long) {
     const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
@@ -86,42 +95,30 @@ function App() {
       setFlashMessage(e);
       setFlash(true);
     }
-  }
-
-  // Callbacks for HTML Geolocation function
-  function success(position) {
-    getCity(position.coords.latitude, position.coords.longitude)
-  }
-  function error() {
-    setFlashMessage("Cannot Get Position!");
-    showFlash(true);
-  }
+  } 
 
   function toggleUnits() {
     setUnits(units === "metric" ? "imperial" : "metric");
   }
 
   return (
-    <Container>
-      <Background />
-      <ToggleDiv>
-        <LeftToggle><RiCelsiusFill /></LeftToggle>
-        <RightToggle><RiFahrenheitFill /></RightToggle>
-        <ToggleUnit onClick={toggleUnits} units={units}/>
-      </ToggleDiv>
+    <Container className="bg-dark px-0 text-light" style={{minHeight: "100vh"}} fluid={true} >
+      <GlobalStyle />
       {
         showFlash && 
-        <FlashContainer>
-          <FlashMessage duration={3000} persistOnHover={true}>{flashMessage}</FlashMessage>
-        </FlashContainer>
+        <div className="w-100">
+          <Alert color="danger" className="text-center">
+            <FlashMessage duration={3000} persistOnHover={true}>{flashMessage}</FlashMessage>
+          </Alert>
+        </div>
       }
-        <GlobalStyle />
       <SearchBar
         setFlash={setFlash}
         setFlashMessage={setFlashMessage}
         getWeatherObj={getWeatherObj}
         locationObj={locationObj}
         setLocationObj={setLocationObj}
+        getCoords={getCoords}
       />
       <Weather 
         getWeatherObj={getWeatherObj}
@@ -131,8 +128,6 @@ function App() {
         symbol={symbol}
       />
     </Container>
-
   );
 }
-
 export default App;
