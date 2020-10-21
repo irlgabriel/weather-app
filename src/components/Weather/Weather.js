@@ -41,7 +41,7 @@ export default function Weather({
                 {
                   <CardBody>
                     
-                    <div style={{display: "flex", alignItems: "center"}}>{(new Date()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: &nbsp;{day.temp.day}{symbol}</div>
+                    <div style={{display: "flex", alignItems: "center"}}>Current: &nbsp;{parseInt(day.temp.day)}{symbol}</div>
                     <div style={{display: "flex", alignItems: "center"}}>Min: &nbsp;{parseInt(day.temp.min)}{symbol}</div>
                     <div style={{display: "flex", alignItems: "center"}}>Max: &nbsp;{parseInt(day.temp.max)}{symbol}</div>
                     <p className="mb-0">Humidity: &nbsp;{day.humidity}%</p>
