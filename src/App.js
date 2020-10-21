@@ -5,9 +5,8 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css"
 
 // Components
-import { Container, Row, Col, Alert } from "reactstrap"
+import { Container, Alert, Button, ButtonGroup } from "reactstrap"
 import { SearchBar, Weather } from "./components"
-import { FlashContainer } from "./App.components";
 import FlashMessage from "react-flash-message";
 import { RiCelsiusFill, RiFahrenheitFill } from "react-icons/ri";
 
@@ -107,11 +106,15 @@ function App() {
       {
         showFlash && 
         <div className="w-100">
-          <Alert color="danger" className="text-center">
+          <Alert color="info" className="text-center">
             <FlashMessage duration={3000} persistOnHover={true}>{flashMessage}</FlashMessage>
           </Alert>
         </div>
       }
+      <ButtonGroup style={{width: "100px"}}className="d-flex justify-content-center align-items-center">
+        <Button color="info" active={units === "metric"} onClick={() => units !== 'metric' ? setUnits('metric') : ""}><RiCelsiusFill /></Button>
+        <Button color="info" active={units === "imperial"} onClick={() => units === 'metric' ? setUnits('imperial') : ""}><RiFahrenheitFill /></Button>
+      </ButtonGroup>
       <SearchBar
         setFlash={setFlash}
         setFlashMessage={setFlashMessage}
