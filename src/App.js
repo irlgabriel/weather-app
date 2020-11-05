@@ -111,11 +111,10 @@ function App() {
           </Alert>
         </div>
       }
-      <ButtonGroup style={{width: "100px"}}className="d-flex justify-content-center align-items-center">
-        <Button color="info" active={units === "metric"} onClick={() => units !== 'metric' ? setUnits('metric') : ""}><RiCelsiusFill /></Button>
-        <Button color="info" active={units === "imperial"} onClick={() => units === 'metric' ? setUnits('imperial') : ""}><RiFahrenheitFill /></Button>
-      </ButtonGroup>
+      
       <SearchBar
+        setUnits={setUnits}
+        units={units}
         setFlash={setFlash}
         setFlashMessage={setFlashMessage}
         getWeatherObj={getWeatherObj}
