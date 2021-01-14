@@ -10,14 +10,25 @@ import { themeLight, themeDark } from './theme';
 import { SearchBar, Background, LoadingOverlay, Navbar, WeatherInfo } from "./components"
 
 import Box from "@material-ui/core/Box";
-import FlashMessage from "react-flash-message";
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
     position: 'relative',
     minHeight: '100vh',
-
+  },
+  flash: {
+    position: 'absolute',
+    top: '50px',
+    padding: '.5rem',
+    width: '300px',
+    left: 'calc(50% - 150px)',
+    zIndex: '112115',
+    borderRadius: '6px',
+    display: 'grid',
+    placeItems: 'center',
+    background: 'linear-gradient(99.86deg, #697E83 0%, #1C859C 100%), #FFFFFF;',
+    color: 'white'
   }
 }))
 
@@ -28,12 +39,17 @@ function App() {
 
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [weatherData, setWeatherData] = useState({});
   
+  //Clear message after 3s;
   useEffect(() => {
-    setLoading(false);
-  }, [])
+    if(message !== '') {
+      setTimeout(() => {
+        setMessage('');
+      }, 3000)
+    }
+  }, [message])
 
   //When location changes, fetch new weather data
   useEffect(() => {
@@ -53,7 +69,12 @@ function App() {
         setWeatherData(res.data);
         setLoading(false);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        setLoading(false);
+        console.log(err);
+        console.log(err.response)
+        setMessage(err.response.data.error.message)
+      });
     }
   }, [location])
 
@@ -66,7 +87,7 @@ function App() {
           <Box className={classes.root}>
             <Navbar theme={theme} setTheme={setTheme} />
             <SearchBar setLocation={setLocation}/>
-            <WeatherInfo />
+            <WeatherInfo data={weatherData}/>
 
             {/* Loading Overlay Transition */}
             <CSSTransition
@@ -85,7 +106,7 @@ function App() {
               timeout={250}
               unmountOnExit
             >
-              <FlashMessage>{message}</FlashMessage>
+              <div className={classes.flash}>{message}</div>
             </CSSTransition>
           </Box>
         </Route>
