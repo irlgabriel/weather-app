@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 })
 
-export default () => {
+export default ({theme, setTheme}) => {
   const classes = useStyles();
 
   return (
@@ -30,9 +30,11 @@ export default () => {
         </Link>
         <FormControlLabel
           className={classes.right}
+          onChange={() => theme === 'light' ? setTheme('dark') : setTheme('light')}
+          checked={theme === 'dark'}
           label={<BsMoon color='orange' size='32px'/>}
           control={
-            <Switch />
+            <Switch color='primary' />
           }
         >
         </FormControlLabel>
