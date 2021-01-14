@@ -7,6 +7,7 @@ import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { FaLocationArrow } from 'react-icons/fa';
+import Axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
@@ -25,13 +26,57 @@ const useStyles = makeStyles({
   }
 })
 
-export default function SearchBar() {
+export default function SearchBar({setLocation}) {
   const classes = useStyles();
 
+  /* JS Geolocation API */
+  const findLocation = () => {
+    console.log('finding')
+    function success(position) {
+      const latitude  = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+
+      const options = {
+        method: 'GET',
+        url: 'https://trueway-geocoding.p.rapidapi.com/ReverseGeocode',
+        params: {location: `${latitude},${longitude}`, language: 'en'},
+        headers: {
+          'x-rapidapi-key': 'd89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a',
+          'x-rapidapi-host': 'trueway-geocoding.p.rapidapi.com'
+        }
+      };
+
+      Axios.request(options)
+      .then(res => {
+        setLocation(res.data.results[3].address)
+      })
+      .catch(err => console.log(err))
+
+    }
+
+    function error() {
+      setLocation('Unable to retrieve your location');
+    }
+
+    if(!navigator.geolocation) {
+      setLocation('Geolocation is not supported by your browser');
+    } else {
+      navigator.geolocation.getCurrentPosition(success, error, {enableHighAccuracy: true, timeout: 5000, maximumAge: 0});
+    }
+
+  }
+  //Submit handler
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setLocation(e.target.country.value);
+  }
+
   return(
-    <form className={classes.root}>
+    <form onSubmit={(e) => submitHandler(e)} className={classes.root}>
       <Grid className={classes.grid} wrap='nowrap' direction='column' container>
         <TextField 
+          name='country'
           size='medium'
           className={classes.input}
           color='secondary'
@@ -39,9 +84,9 @@ export default function SearchBar() {
           label='City'
         />
         
-        <Button variant='contained' color='secondary'>Search</Button>
+        <Button type='submit' variant='contained' color='secondary'>Search</Button>
 
-        <Fab color='secondary'>
+        <Fab onClick={() => findLocation()} color='secondary'>
           <FaLocationArrow size='24px'/>
         </Fab>
       </Grid>
