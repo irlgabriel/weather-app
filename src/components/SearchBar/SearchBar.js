@@ -40,15 +40,10 @@ export default function SearchBar() {
         />
         
         <Button variant='contained' color='secondary'>Search</Button>
-        <Typography variant='h5'>Or</Typography>
 
-        <Grid className={classes.grid} container item>
-          <Typography variant='h5'>My Location</Typography>
-          <Fab color='secondary'>
-            <FaLocationArrow size='24px'/>
-          </Fab>
-        </Grid>
-
+        <Fab color='secondary'>
+          <FaLocationArrow size='24px'/>
+        </Fab>
       </Grid>
 
     </form>
