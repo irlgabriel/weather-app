@@ -1,2 +1,4 @@
 export { default as SearchBar} from "./SearchBar/SearchBar"; 
-export { default as Weather} from "./Weather/Weather";
+export { default as LoadingOverlay } from './LoadingOverlay/LoadingOverlay';
+export { default as Background } from './Background/Background';
+export { default as Navbar } from './Navbar/Navbar';

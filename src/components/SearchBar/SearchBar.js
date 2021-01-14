@@ -1,55 +1,50 @@
 import React from "react";
-import {
-  Form,
-  FormGroup,
-  Button,
-  ButtonGroup
-} from "reactstrap";
-import { FormInput, FormLabel, LocationButton, InputContainer } from "./SearchBar.components";
-import { FaSearchLocation } from "react-icons/fa";
-import { RiFahrenheitFill, RiCelsiusFill } from "react-icons/ri";
 
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import { FaLocationArrow } from 'react-icons/fa';
 
-export default function SearchBar({
-  units,
-  setUnits,
-  setFlash,
-  setFlashMessage,
-  locationObj,
-  setLocationObj,
-  getCoords
-}) {
-  function submitHandler(e) {
-    e.preventDefault();
-    const location = e.target.location.value
-    if(location === "") {
-      setFlashMessage("bad query");
-      setFlash(true)
-    } else {
-      setLocationObj({city: location})
+const useStyles = makeStyles({
+  root: {
+  },
+  input: {
+    width: '90%',
+    color: '#fff',
+    marginBottom: '.5rem'
+  },
+  grid: {
+    alignItems: 'center',
+    '& > button': {
+      marginBottom: '.5rem'
     }
   }
+})
 
+export default function SearchBar() {
+  const classes = useStyles();
 
   return(
-    <Form onSubmit={submitHandler}>
-      <FormGroup>
-        <FormLabel className="text-center w-100 h2" htmlFor="location">City</FormLabel>
-        <InputContainer>
-          <FormInput className="mx-0" style={{height: '50px', fontSize: "1.5rem"}} defaultValue={locationObj.city} name="location" placeholder="City Name.." />
-          <ButtonGroup
-            style={{width: "100px", height: "50px", position: "absolute", top:"0", right: "0"}} className="d-flex justify-content-center align-items-center"
-          >
-          <Button style={{height: "100%", borderRadius: "0"}} className="p-0 m-0" color="info" active={units === "metric"} onClick={() => units !== 'metric' ? setUnits('metric') : ""}><RiCelsiusFill /></Button>
-          <Button style={{height: "100%", borderRadius: "0", borderTopRightRadius: "3px", borderBottomRightRadius: "3px"}} className="p-0 m-0" color="info" active={units === "imperial"} onClick={() => units === 'metric' ? setUnits('imperial') : ""}><RiFahrenheitFill /></Button>
-          </ButtonGroup>
-        </InputContainer>
-      </FormGroup>
-      <FormGroup  className="text-center">
-        <Button className="btn-outline-light btn-lg btn">Search</Button>
-        <p className="mb-0">Or</p>
-        <Button type="button" className="btn-lg btn btn-outline-light" onClick={getCoords} color="info">Get My Location</Button>
-      </FormGroup>
-    </Form>
+    <form className={classes.root}>
+      <Grid className={classes.grid} wrap='nowrap' direction='column' container>
+        <TextField 
+          className={classes.input}
+          color='secondary'
+          variant='outlined'
+          label='City'
+        />
+        
+        <Button variant='contained' color='secondary'>Search</Button>
+        <Typography variant='h5'>Or</Typography>
+        <Fab color='secondary'>
+          <FaLocationArrow size='24px'/>
+        </Fab>
+
+      </Grid>
+
+    </form>
   )
 }
