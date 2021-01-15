@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
 
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
 
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
@@ -57,16 +57,25 @@ function App() {
       setLoading(true);
       const options = {
         method: 'GET',
-        url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-        params: {q: location.split(',')[0]},
-        headers: {
-          'x-rapidapi-key': 'd89eb58edamsh10814d1e692895ep158751jsn8a8b4c01281a',
-          'x-rapidapi-host': 'weatherapi-com.p.rapidapi.com'
-        }
+        url: 'https://api.openweathermap.org/data/2.5/forecast/',
+        params: {
+          q: location.split(',')[0], 
+          cnt: '9',
+          units: 'metric',
+          appid: '216308b7dadc47ffda243f722747e290'
+
+        },
       };
       axios.request(options)
       .then(res => {
-        setWeatherData(res.data);
+        //preprocess data to get it into the right format
+        const data = res.data.list.map(forecast => (
+          {
+            date: forecast.dt_txt.split(' ')[1].split(':')[0] + ':00',
+            max: forecast.main.temp_max,
+            min: forecast.main.temp_min
+        }))
+        setWeatherData(data);
         setLoading(false);
       })
       .catch(err => {
@@ -86,8 +95,8 @@ function App() {
         <Route to='/'>
           <Box className={classes.root}>
             <Navbar theme={theme} setTheme={setTheme} />
-            <SearchBar setLocation={setLocation}/>
-            <WeatherInfo data={weatherData}/>
+            <SearchBar setLocation={setLocation} setMessage={setMessage} setLoading={setLoading}/>
+            <WeatherInfo location={location} data={weatherData}/>
 
             {/* Loading Overlay Transition */}
             <CSSTransition

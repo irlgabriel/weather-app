@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { FaLocationArrow } from 'react-icons/fa';
 import Axios from 'axios';
@@ -26,12 +25,12 @@ const useStyles = makeStyles({
   }
 })
 
-export default function SearchBar({setLocation}) {
+export default function SearchBar({setLocation, setMessage, setLoading}) {
   const classes = useStyles();
 
   /* JS Geolocation API */
   const findLocation = () => {
-    console.log('finding')
+    setLoading(true);
     function success(position) {
       const latitude  = position.coords.latitude;
       const longitude = position.coords.longitude;
@@ -49,9 +48,13 @@ export default function SearchBar({setLocation}) {
 
       Axios.request(options)
       .then(res => {
-        setLocation(res.data.results[3].address)
+        setLocation(`${res.data.results[0].locality}, ${res.data.results[0].country}`)
+        setLoading(false);
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        setMessage(err.response.data.message)
+        setLoading(false);
+      });
 
     }
 
