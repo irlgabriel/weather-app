@@ -31,7 +31,7 @@ export default () => {
   const classes = useStyles()
 
   return (
-    <AppBar position='fixed' className={classes.root} color='secondary'>
+    <AppBar position='absolute' className={classes.root} color='secondary'>
       <Toolbar className={classes.toolbar}>
         <a className={classes.flex} href='https://github.com/irlgabriel'>
           <AiFillGithub color='#fafafa' size='48px' />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './transitions.css'
+import './App.css'
 
 // Components
 import { BrowserRouter as Router, Route } from 'react-router-dom';
