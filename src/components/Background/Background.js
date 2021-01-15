@@ -7,13 +7,13 @@ const useStyles = makeStyles({
     
   },
   light: {
-    background: 'linear-gradient(162.46deg, #91B8FA 0%, rgba(133, 132, 255, 0.42) 100%)',
-    position: 'absolute',
+    background:'linear-gradient(154.34deg, #23A5DE 0%, rgba(240, 108, 250, 0.76) 100%)',
+    position: 'fixed',
     inset: '0',
   },
   dark: {
     background: 'linear-gradient(99.86deg, #1F5985 0%, #1C859C 100%), #FFFFFF',
-    position: 'absolute',
+    position: 'fixed',
     inset: '0',
   }
 })

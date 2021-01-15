@@ -7,7 +7,7 @@ import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { CSSTransition } from 'react-transition-group';
 import { themeLight, themeDark } from './theme';
-import { SearchBar, Background, LoadingOverlay, Navbar, WeatherInfo } from "./components"
+import { SearchBar, Background, LoadingOverlay, Navbar, WeatherInfo, Footer } from "./components"
 
 import Box from "@material-ui/core/Box";
 import axios from 'axios';
@@ -41,6 +41,7 @@ function App() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [weatherData, setWeatherData] = useState({});
+  const [units, setUnits] = useState('metric');
   
   //Clear message after 3s;
   useEffect(() => {
@@ -51,29 +52,30 @@ function App() {
     }
   }, [message])
 
-  //When location changes, fetch new weather data
+  //When location/units changes, fetch new weather data
   useEffect(() => {
     if(location) {
       setLoading(true);
       const options = {
         method: 'GET',
-        url: 'https://api.openweathermap.org/data/2.5/forecast/',
+        url: 'http://api.openweathermap.org/data/2.5/forecast',
         params: {
           q: location.split(',')[0], 
-          cnt: '9',
-          units: 'metric',
-          appid: '216308b7dadc47ffda243f722747e290'
-
+          units: units,
+          appid: 'c3fc89948932320041534da5615559ec',
+          cnt: '9'
         },
       };
       axios.request(options)
       .then(res => {
-        //preprocess data to get it into the right format
+        //preprocess data to get it into the right format for recharts lib
         const data = res.data.list.map(forecast => (
           {
             date: forecast.dt_txt.split(' ')[1].split(':')[0] + ':00',
-            max: forecast.main.temp_max,
-            min: forecast.main.temp_min
+            //max: forecast.main.temp_max,
+            //min: forecast.main.temp_min
+            temp: forecast.main.temp,
+            feels: forecast.main.feels_like,
         }))
         setWeatherData(data);
         setLoading(false);
@@ -85,7 +87,7 @@ function App() {
         setMessage(err.response.data.error.message)
       });
     }
-  }, [location])
+  }, [location, units])
 
   return (
     <Router>
@@ -96,7 +98,8 @@ function App() {
           <Box className={classes.root}>
             <Navbar theme={theme} setTheme={setTheme} />
             <SearchBar setLocation={setLocation} setMessage={setMessage} setLoading={setLoading}/>
-            <WeatherInfo location={location} data={weatherData}/>
+            <WeatherInfo location={location} data={weatherData} units={units} setUnits={setUnits}/>
+            <Footer />
 
             {/* Loading Overlay Transition */}
             <CSSTransition
