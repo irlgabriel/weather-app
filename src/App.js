@@ -58,7 +58,7 @@ function App() {
       setLoading(true);
       const options = {
         method: 'GET',
-        url: 'http://api.openweathermap.org/data/2.5/forecast',
+        url: 'https://api.openweathermap.org/data/2.5/forecast',
         params: {
           q: location.split(',')[0], 
           units: units,
