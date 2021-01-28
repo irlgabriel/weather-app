@@ -58,7 +58,7 @@ export default ({weatherObj, theme, location, data, units, setUnits}) => {
     >
       <Box className={classes.root} m={2} p={1}>
         <Typography variant='h3'>{location}, {days[new Date().getDay()]}</Typography>
-        <Typography variant='h3'>{weatherObj && weatherObj.list[0].weather[0].description}</Typography>
+        <Typography variant='subtitle2'>{weatherObj && weatherObj.list[0].weather[0].description}</Typography>
         <Divider className={classes.divider} />
         <Typography variant='h4'>{units === 'metric' ? <RiCelsiusFill /> : <RiFahrenheitFill />} </Typography>
         <FormControlLabel
