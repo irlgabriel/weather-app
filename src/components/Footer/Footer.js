@@ -7,8 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    top: 'auto',
-    bottom: 0,
+    marginTop: 'auto',
   },
   flex: {
     display: 'flex',
@@ -31,7 +30,7 @@ export default () => {
   const classes = useStyles()
 
   return (
-    <AppBar position='absolute' className={classes.root} color='secondary'>
+    <AppBar position='relative' className={classes.root} color='secondary'>
       <Toolbar className={classes.toolbar}>
         <a className={classes.flex} href='https://github.com/irlgabriel'>
           <AiFillGithub color='#fafafa' size='48px' />

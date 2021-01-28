@@ -16,6 +16,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     position: 'relative',
     minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
   },
   flash: {
     position: 'absolute',
@@ -37,6 +39,7 @@ function App() {
 
   const [theme, setTheme] = useState('dark');
 
+  const [weatherObj, setWeatherObj] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -69,6 +72,7 @@ function App() {
       axios.request(options)
       .then(res => {
         //preprocess data to get it into the right format for recharts lib
+        setWeatherObj(res.data);
         const data = res.data.list.map(forecast => (
           {
             date: forecast.dt_txt.split(' ')[1].split(':')[0] + ':00',
@@ -98,11 +102,12 @@ function App() {
           <Box className={classes.root}>
             <Navbar theme={theme} setTheme={setTheme} />
             <SearchBar setLocation={setLocation} setMessage={setMessage} setLoading={setLoading}/>
-            <WeatherInfo location={location} data={weatherData} units={units} setUnits={setUnits}/>
+            <WeatherInfo weatherObj={weatherObj} theme={theme} location={location} data={weatherData} units={units} setUnits={setUnits}/>
             <Footer />
 
             {/* Loading Overlay Transition */}
             <CSSTransition
+              appear
               in={loading}
               classNames='fade'
               timeout={250}

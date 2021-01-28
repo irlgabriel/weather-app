@@ -20,13 +20,17 @@ import {
   defs
 } from 'recharts';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    border: '1px solid white',
+    border: theme.palette.type === 'dark' ? '1px solid white' : '1px solid rgba(0,0,0,.7)',
     borderRadius: '5px',
     backdropFilter: 'blur(100px)',
+  },
+
+  divider: {
+    margin: '.5rem 0',
   }
-})
+}))
 
 const days = [
   'Sunday',
@@ -41,7 +45,7 @@ const days = [
 //&#8457 fahrenheit
 //&$8451 celsius
 
-export default ({location, data, units, setUnits}) => {
+export default ({weatherObj, theme, location, data, units, setUnits}) => {
   const classes = useStyles();
 
   return (
@@ -54,7 +58,8 @@ export default ({location, data, units, setUnits}) => {
     >
       <Box className={classes.root} m={2} p={1}>
         <Typography variant='h3'>{location}, {days[new Date().getDay()]}</Typography>
-        <Divider />
+        <Typography variant='h3'>{weatherObj && weatherObj.list[0].weather[0].description}</Typography>
+        <Divider className={classes.divider} />
         <Typography variant='h4'>{units === 'metric' ? <RiCelsiusFill /> : <RiFahrenheitFill />} </Typography>
         <FormControlLabel
           onChange={() => units === 'metric' ? setUnits('imperial') : setUnits('metric')}
@@ -68,20 +73,20 @@ export default ({location, data, units, setUnits}) => {
           <LineChart margin={{ top: 10, right: 30, left: 0, bottom: 0 }} data={data}>
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#21D2DE" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#21D2DE" stopOpacity={0}/>
+                <stop offset="5%" stopColor={theme === 'dark' ? "#21D2DE" : '#F85F0F'} stopOpacity={0.8}/>
+                <stop offset="95%" stopColor={theme === 'dark' ? "#21D2DE" : '#F85F0F'} stopOpacity={0}/>
               </linearGradient>
               <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#DE7A2A" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#DE7A2A" stopOpacity={0}/>
+                <stop offset="5%" stopColor={theme === 'dark' ? "#DE7A2A" : '#9607F8'} stopOpacity={0.8}/>
+                <stop offset="95%" stopColor={theme === 'dark' ? "#DE7A2A" : '#9607F8'} stopOpacity={0}/>
               </linearGradient>
             </defs>
             <Legend />
-            <XAxis stroke='#fff' dataKey='date' />
-            <YAxis stroke='#fff' />
+            <XAxis stroke={theme === 'dark' ? '#fff' : 'rgba(0,0,0,7)'} dataKey='date' />
+            <YAxis stroke={theme === 'dark' ? '#fff' : 'rgba(0,0,0,7)'} />
             <Tooltip />
-            <Line type='montoone' dataKey='temp' stroke="#21D2DE" fillOpacity={1} fill="url(#colorUv)"/>
-            <Line type='monotone' dataKey='feels' stroke="#DE7A2A" fillOpacity={1} fill="url(#colorPv)"/>
+            <Line type='montoone' dataKey='temp' stroke={theme === 'dark' ? "#21D2DE" : '#F85F0F'} fillOpacity={1} fill="url(#colorUv)"/>
+            <Line type='monotone' dataKey='feels' stroke={theme === 'dark' ? "#DE7A2A" : '#9607F8'} fillOpacity={1} fill="url(#colorPv)"/>
           </LineChart>
         </ResponsiveContainer>
       </Box>
